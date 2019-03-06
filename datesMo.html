@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+<p>
+<h1>Employee's Leave Calculator</h1>
+    <FORM NAME="myform" ACTION="" METHOD="GET">
+        Enter your CAI: <BR>
+        <INPUT TYPE="text" NAME="inputbox" VALUE="">
+        <P>
+            Enter Start Date: <BR>
+            <INPUT TYPE="date" NAME="datebox" VALUE="">
+            <P>
+                Enter Number of Days:<BR>
+                <INPUT TYPE="number" NAME="noDaysbox" VALUE="">
+                <P>
+                    <INPUT TYPE="button" NAME="button" Value="Submit" onClick="testResults(this.form)">
+    </FORM>
+</body>
+
+<script src="moment.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+    function testResults(form) {
+        //COLLECT INPUTED VALUES
+        var startVac = form.datebox.value;
+        var noDays = form.noDaysbox.value;
+        let iteratedDays = noDays;
+        let days = noDays;
+        //FORMAT INPUTED DATA TO MOMENT REC0GNISABLE DATE
+        let modStartVac = moment(startVac).format("MM-DD-YYYY");
+        //EVALAUTE AN ASSUMED END OF VAC DATE
+        let endVac = moment(modStartVac).add(noDays, 'd');
+        //PRINT OUT COLLECTED RESULTS
+        console.log(startVac);
+        console.log(noDays);
+        console.log(endVac);
+        //CREATE AN ARRAY OF MOMENT RECOGNIABLE DATES
+        let pubHol = [
+            moment("03-04-2019").format("MM-DD-YYYY"),
+            moment("03-25-2019").format("MM-DD-YYYY"),
+            moment("03-03-2019").format("MM-DD-YYYY"),
+            moment("03-05-2019").format("MM-DD-YYYY"),
+            moment("03-10-2019").format("MM-DD-YYYY"),
+            moment("03-13-2019").format("MM-DD-YYYY"),
+            moment("03-17-2019").format("MM-DD-YYYY")
+        ];
+        console.log('the hols; ', pubHol);
+        let vacDays = [];
+        let weekCount = 0;
+        let possRes = moment();
+        var currDate = moment(modStartVac).startOf('day');
+        var lastDate = moment(endVac).startOf('day');
+
+        //STORE ALL ENUMERATED DATES IN AN ARRAY
+        for (let x= 0; x<= noDays - 1; x++){
+            vacDays.push(currDate.clone().toDate());
+            currDate.add(1, 'days');
+        }
+        console.log('this is the array', vacDays);
+        /*while (currDate.add(1, 'days').diff(lastDate) < 0) {
+            console.log(currDate.toDate());
+            vacDays.push(currDate.clone().toDate());
+        }
+        */
+
+        for (let i = 0; i < vacDays.length; i++) {
+
+            for (let j = 0; j < pubHol.length; j++) {
+
+                if (moment(vacDays[i]).isSame(pubHol[j] || moment(vacDays[i]).day() == 0 || moment(vacDays[i]).day() == 6)) {
+                    //console.log('this is a clone, ', vacDays[i]);
+                    weekCount++;
+                    noDays++;
+                    moment(vacDays[i]).add(1, 'days');
+                   // console.log('this is weekend count 1: ', weekCount);
+
+                }
+                 
+             }
+
+              if (moment(vacDays[i]).day() == 0) {
+                        moment(vacDays[i]).add(1, 'days');
+                        weekCount++;
+                        noDays++;
+                       
+                    }
+                    if (moment(vacDays[i]).day() == 6) {
+                        moment(vacDays[i]).add(2, 'days');
+                        weekCount++;
+                        noDays++;
+
+            }
+
+        }
+        var resDate = moment(modStartVac).startOf('day');
+        moment(resDate).add(noDays, 'd').format("MM-DD-YYYY")
+        console.log('your new nodays is: ', noDays);
+        console.log('your new resumption date is: ', moment(modStartVac).add(noDays, 'd'));
+        alert('your new resumption date is: ', resDate);
+
+
+
+        //shorter code
+        for (let w = 0; w <= noDays - 1; w++) {
+            var iteratedVac = moment(modStartVac).startOf('day');
+            iteratedVac = moment(iteratedVac).add(iteratedDays, 'd');
+            for (let j = 0; j < pubHol.length; j++) {
+                if (moment(iteratedVac).isSame(pubHol[j] || moment(iteratedVac).day() === 0 || moment(iteratedVac).day() === 6)) {
+                    iteratedDays++;
+                    console.log('if loop');
+                }
+            }
+
+            
+
+        }
+        console.log('we are in shorted code: ', iteratedDays);
+
+
+
+
+
+
+    }
+
+</SCRIPT>
+
+</html>

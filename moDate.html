@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+
+    <FORM NAME="myform" ACTION="" METHOD="GET">
+      Enter your CAI: <BR>
+      <INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
+          Enter Start Date: <BR>
+          <INPUT TYPE="date" NAME="datebox" VALUE=""><P>
+              Enter Number of Days:<BR>
+              <INPUT TYPE="number" NAME="noDaysbox" VALUE=""><P>
+      <INPUT TYPE="button" NAME="button" Value="Submit" onClick="testResults(this.form)">
+      </FORM>
+
+
+  <!--
+  <p>Before the script...</p>
+
+  <script>
+    alert( 'I am JS' );
+  </script>
+
+  <p>...After the script.</p>
+-->
+
+
+  <script src="moment.js">
+ 
+  
+  </script>
+<SCRIPT LANGUAGE="JavaScript">
+
+
+    function testResults (form) {
+        var TestVar = form.inputbox.value;
+        var startVac = form.datebox.value;
+        //var ends = form.datebox2.value;
+        var noDays = form.noDaysbox.value;
+        alert ("You typed: " + TestVar +" "+ startVac+" " + noDays);
+        let start = moment(startVac).format();
+        let end = moment(startVac).add(noDays, 'd').format();
+        alert('this is the enddate '+end);
+        alert('this is the startdate '+start);
+        alert('this is a specific day '+moment(startVac).day());
+        if (moment(start).day()===4){
+          alert ('this is a thursday')
+        }
+        console.log("start is ", start)
+        console.log("end is " , end)
+        
+        
+        var weekendCount = 0;
+        
+        var daysOfYear =[];
+
+        
+        
+        for(let d = start; d <= end;d = moment(d).add(1,'d') ){
+          
+
+          if (moment(d).day() == 0 || moment(d).day() == 6) {
+                weekendCount++;
+                // alert ("we are inside the for -  if");
+              }
+        }
+        alert('this is the weekend count/ days of year '  + weekendCount +" "+ daysOfYear);
+            
+              
+              
+
+
+          while(start<=end){
+            alert ("we are inside the while loop")
+            
+              if (moment(start).day() === 0 || moment(start).day() === 6) {
+                ++weekendCount;
+                alert ("we are inside the if")
+              }
+              start = moment(start).add(1,'d')
+        }
+        alert('this is the weekend count '  + weekendCount);
+    }
+
+
+
+    </SCRIPT>
+<!--/<script>
+  // const uglyDate = "25-03-1989";
+   //const niceDate = moment(uglyDate, 'DD-MM-YYYY');
+   //alert(niceDate);
+   let startDate= prompt('enter startdate',"");
+   let endDate =prompt ('Enter end date', "");
+   const fstartDate = moment(startDate, 'DD-MM-YYYY');
+   const fendDate = moment(endDate, 'DD-MM-YYYY');
+   let nfstartDate = fstartDate;
+   alert(fendDate);
+   alert(fstartDate);
+   
+    let diffDays = fendDate.diff(fstartDate, 'days')  + 1 // =1
+    alert(diffDays);
+    var weekendCount = 0;
+
+
+  for (var d = nfstartDate; d <= fendDate; moment(d.day).add(1, 'd'){
+    if(moment(d.day).day() === 0 || moment(d.day).day() === 6){
+      ++weekendCount;
+    }
+  }
+
+   
+
+        
+/***
+   while (moment(nfstartDate).date()<=moment(fendDate).date()) {
+       var myDay = moment(fstartDate.date, "YYYY-MM-DD HH:mm:ss")
+       var myNewDAY = myDay.format('dddd');
+        nfstartDate+= moment(fstartDate.date).add(1, 'd');
+        alert(moment(myNewDAY.day).add(1, 'd'));
+        //moment(fstartDate).set(moment(fstartDate).get('date')+1) 
+
+
+        if (moment(myNewDAY.day).day()===0||moment(myNewDAY.day).day()===6){
+            ++weekendCount;
+
+        }
+        
+    }
+    alert(weekendCount);
+    **/
+
+  /**
+        function calculateWeekendDays(ffDate, fDate){
+            var weekendCount = 0;
+            while(ffDate<fDate){
+                ffDate.moment.setDate(ffDate.getDate()+1);
+                if (ffDate.moment().Day()=== 0 )|| ffDate.getDay()===6){
+                    ++weekendCount;
+                }
+            }
+            
+            return weekendCount;
+           
+        }
+        alert(calculateWeekendDays(fstartDate,fendDate));
+
+
+
+        function addWeekdays(date, days) {
+  date = moment(date); // use a clone
+  while (days > 0) {
+    date = date.add(1, 'days');
+    // decrease "days" only if it's a weekday.
+    if (date.isoWeekday() !== 6 && date.isoWeekday() !== 7) {
+      days -= 1;
+    }
+  }
+  return date;
+}
+
+        */
+
+
+</script>
+
+-->
+
+</body>
+
+</html>
